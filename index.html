@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gerador de Assinatura</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,7 +13,7 @@
     }
 
     .container {
-      max-width: 490px;
+      max-width: 500px;
       background: #fff;
       padding: 20px;
       margin: auto;
@@ -24,6 +23,7 @@
 
     h1, h2 {
       text-align: center;
+      margin: 10px 0;
     }
 
     label {
@@ -32,7 +32,7 @@
       margin-top: 10px;
     }
 
-    input, select, button {
+    input, button {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -48,44 +48,54 @@
     }
 
     button:hover {
-      background-color: #1c5d84;
+      background-color: #1e5f89;
+    }
+
+    #signature-download-box {
+      width: 100%;
+      max-width: 500px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 10px 15px;
+      margin: 20px auto 10px;
+      box-sizing: border-box;
     }
 
     #signature-preview {
-      border: 1px solid #ccc;
-      padding: 10px;
-      background: #fff;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
-      width: 100%;
-      height: 100px;
+      flex-wrap: wrap;
     }
 
     .logo {
-      width: 120px;
+      width: 100px;
+      height: auto;
+    }
+
+    .certification {
+      width: 80px;
       height: auto;
     }
 
     .signature-text {
       flex: 1;
       text-align: left;
-      padding: 0 15px;
-      font-size: 14px;
+      font-size: 13px;
+      padding: 0 10px;
+      line-height: 1.4;
     }
 
-    .certification {
-      width: 100px;
-      height: auto;
+    .signature-text p {
+      margin: 2px 0;
     }
 
     .privacy-notice {
-      font-size: 12px;
+      font-size: 11px;
       color: #555;
-      margin-top: 10px;
+      margin-top: 8px;
       border-top: 1px solid #ccc;
-      padding-top: 10px;
+      padding-top: 8px;
     }
   </style>
 </head>
@@ -93,36 +103,36 @@
 
   <div class="container">
     <h1>Gerador de Assinatura</h1>
-
     <form id="signature-form">
       <label for="first-name">Primeiro Nome*</label>
-      <input type="text" id="first-name" placeholder="Seu primeiro nome" required />
+      <input type="text" id="first-name" placeholder="Seu primeiro nome" required>
 
       <label for="last-name">Sobrenome*</label>
-      <input type="text" id="last-name" placeholder="Seu sobrenome" required />
+      <input type="text" id="last-name" placeholder="Seu sobrenome" required>
 
       <label for="job-title">Cargo*</label>
-      <input type="text" id="job-title" placeholder="Seu cargo na empresa" required />
+      <input type="text" id="job-title" placeholder="Seu cargo na empresa" required>
 
       <label for="Loja">Loja*</label>
-      <input type="text" id="Loja" placeholder="Sua Loja" required />
+      <input type="text" id="Loja" placeholder="Sua Loja" required>
 
       <label for="email">E-mail*</label>
-      <input type="email" id="email" placeholder="seu.email@empresa.com.br" required />
+      <input type="email" id="email" placeholder="seu.email@empresa.com.br" required>
 
       <button type="button" id="generate-signature">Gerar Assinatura</button>
     </form>
 
-    <h2>Pré-visualização da Assinatura</h2>
+    <h2>Pré-visualização</h2>
 
-    <div id="signature-preview">
-      <img src="./logo.jpg" alt="Logo Cobasi" class="logo" />
-      <div class="signature-text"></div>
-      <img src="Selos_Agrupados.png" alt="Selos" class="certification" />
-    </div>
-
-    <div class="privacy-notice">
-      <strong>Aviso de Privacidade:</strong> A Cobasi valoriza e respeita a privacidade dos seus dados pessoais e está comprometida em protegê-los de acordo com a LGPD. Esta mensagem e seus anexos são confidenciais. Se você recebeu esta mensagem por engano, por favor, exclua-a imediatamente.
+    <div id="signature-download-box">
+      <div id="signature-preview">
+        <img src="./logo.jpg" alt="Logo Cobasi" class="logo">
+        <div class="signature-text"></div>
+        <img src="./Selos_Agrupados.png" alt="Selos" class="certification">
+      </div>
+      <div class="privacy-notice">
+        <strong>Aviso de Privacidade:</strong> A Cobasi valoriza e respeita a privacidade dos seus dados pessoais e está comprometida em protegê-los de acordo com a LGPD. Esta mensagem e seus anexos são confidenciais. Se você recebeu esta mensagem por engano, por favor, exclua-a imediatamente.
+      </div>
     </div>
 
     <button id="download-signature">Baixar Imagem da Assinatura</button>
@@ -131,11 +141,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     document.getElementById('generate-signature').addEventListener('click', function () {
-      const firstName = document.getElementById('first-name').value;
-      const lastName = document.getElementById('last-name').value;
-      const jobTitle = document.getElementById('job-title').value;
-      const Loja = document.getElementById('Loja').value;
-      const email = document.getElementById('email').value;
+      const firstName = document.getElementById('first-name').value.trim();
+      const lastName = document.getElementById('last-name').value.trim();
+      const jobTitle = document.getElementById('job-title').value.trim();
+      const Loja = document.getElementById('Loja').value.trim();
+      const email = document.getElementById('email').value.trim();
 
       if (!firstName || !lastName || !jobTitle || !Loja || !email) {
         alert('Por favor, preencha todos os campos obrigatórios.');
@@ -144,42 +154,18 @@
 
       const signatureText = document.querySelector('.signature-text');
       signatureText.innerHTML = `
-        <p><strong>${firstName} ${lastName}</strong><br>
-        ${jobTitle}</p>
+        <p><strong>${firstName} ${lastName}</strong><br>${jobTitle}</p>
         <p>${Loja}</p>
         <p>${email}</p>
       `;
     });
 
     document.getElementById('download-signature').addEventListener('click', function () {
-      // Criar um contêiner que agrupa assinatura e aviso
-      let signatureContainer = document.createElement('div');
-      signatureContainer.style.background = "#fff";
-      signatureContainer.style.padding = "10px";
-      signatureContainer.style.display = "inline-block";
-      signatureContainer.style.fontFamily = "Arial, sans-serif";
-      signatureContainer.style.width = "450px";
-
-      // Clonar assinatura e aviso
-      let signatureClone = document.getElementById('signature-preview').cloneNode(true);
-      let privacyClone = document.querySelector('.privacy-notice').cloneNode(true);
-
-      // Adicionar ao novo contêiner
-      signatureContainer.appendChild(signatureClone);
-      signatureContainer.appendChild(privacyClone);
-
-      // Adicionar temporariamente ao body
-      document.body.appendChild(signatureContainer);
-
-      // Capturar imagem com html2canvas
-      html2canvas(signatureContainer).then(canvas => {
-        let link = document.createElement('a');
+      html2canvas(document.getElementById('signature-download-box')).then(canvas => {
+        const link = document.createElement('a');
         link.href = canvas.toDataURL("image/png");
         link.download = 'assinatura.png';
         link.click();
-
-        // Limpar o DOM
-        document.body.removeChild(signatureContainer);
       });
     });
   </script>
