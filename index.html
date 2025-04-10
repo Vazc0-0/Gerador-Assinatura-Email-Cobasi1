@@ -396,8 +396,7 @@
     <button id="download-signature">Baixar Imagem da Assinatura</button>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <<script>
+  <script>
     document.getElementById('generate-signature').addEventListener('click', function () {
       const firstNameInput = document.getElementById('first-name');
       const lastNameInput = document.getElementById('last-name');
@@ -408,9 +407,9 @@
       const firstName = firstNameInput.value.trim();
       const lastName = lastNameInput.value.trim();
   
-      // Função para verificar se a primeira letra é maiúscula
-      function isFirstLetterUppercase(name) {
-        return /^[A-Z]/.test(name);
+      // Função para verificar se a primeira letra de cada palavra é maiúscula
+      function areAllWordsCapitalized(name) {
+        return name.split(' ').every(word => /^[A-Z]/.test(word));
       }
   
       // Resetando mensagens de erro
@@ -422,14 +421,14 @@
         return;
       }
   
-      if (!isFirstLetterUppercase(firstName)) {
+      if (!/^[A-Z]/.test(firstName)) {
         firstNameInput.setCustomValidity('A primeira letra do nome deve ser maiúscula.');
         firstNameInput.reportValidity();
         return;
       }
   
-      if (!isFirstLetterUppercase(lastName)) {
-        lastNameInput.setCustomValidity('A primeira letra do sobrenome deve ser maiúscula.');
+      if (!areAllWordsCapitalized(lastName)) {
+        lastNameInput.setCustomValidity('Todas as palavras do sobrenome devem começar com letra maiúscula.');
         lastNameInput.reportValidity();
         return;
       }
