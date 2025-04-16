@@ -1,2 +1,0 @@
-# Gerador-Assinatura-Email-Cobasi
- 
