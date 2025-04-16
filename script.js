@@ -34,7 +34,7 @@ document.getElementById('generate-signature').addEventListener('click', function
   const lastNameInput = document.getElementById('last-name');
   const jobTitle = document.getElementById('job-title').value.trim();
   const loja = document.getElementById('Loja').value.trim();
-  const email = document.getElementById('email').value.trim();
+ 
 
   const firstName = firstNameInput.value.trim();
   const lastName = lastNameInput.value.trim();
@@ -48,7 +48,7 @@ document.getElementById('generate-signature').addEventListener('click', function
   firstNameInput.setCustomValidity('');
   lastNameInput.setCustomValidity('');
 
-  if (!firstName || !lastName || !jobTitle || !loja || !email) {
+  if (!firstName || !lastName || !jobTitle || !loja) {
     alert('Por favor, preencha todos os campos obrigatórios.');
     return;
   }
@@ -70,7 +70,7 @@ document.getElementById('generate-signature').addEventListener('click', function
   signatureText.innerHTML = `
     <p><strong>${firstName} ${lastName}</strong><br>${jobTitle}</p>
     <p>${loja}</p>
-    <p>${email}</p>
+   
   `;
 });
 
