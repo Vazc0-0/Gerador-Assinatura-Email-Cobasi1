@@ -39,29 +39,12 @@ document.getElementById('generate-signature').addEventListener('click', function
   const firstName = firstNameInput.value.trim();
   const lastName = lastNameInput.value.trim();
 
-  // Função para verificar se a primeira letra de cada palavra é maiúscula
-  function areAllWordsCapitalized(name) {
-    return name.split(' ').every(word => /^[A-Z]/.test(word));
-  }
-
   // Resetando mensagens de erro
   firstNameInput.setCustomValidity('');
   lastNameInput.setCustomValidity('');
 
   if (!firstName || !lastName || !jobTitle || !loja || !email) {
     alert('Por favor, preencha todos os campos obrigatórios.');
-    return;
-  }
-
-  if (!/^[A-Z]/.test(firstName)) {
-    firstNameInput.setCustomValidity('A primeira letra do nome deve ser maiúscula.');
-    firstNameInput.reportValidity();
-    return;
-  }
-
-  if (!areAllWordsCapitalized(lastName)) {
-    lastNameInput.setCustomValidity('Todas as palavras do sobrenome devem começar com letra maiúscula.');
-    lastNameInput.reportValidity();
     return;
   }
 
