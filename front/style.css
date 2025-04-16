@@ -1,0 +1,92 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 500px;
+  background: #fff;
+  padding: 20px;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+h1, h2 {
+  text-align: center;
+  margin: 10px 0;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 10px;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  background-color: #2878a7;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1e5f89;
+}
+
+#signature-download-box {
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px 15px;
+  margin: 20px auto 10px;
+  box-sizing: border-box;
+}
+
+#signature-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+}
+
+.certification {
+  width: 80px;
+  height: auto;
+}
+
+.signature-text {
+  flex: 1;
+  text-align: left;
+  font-size: 13px;
+  padding: 0 10px;
+  line-height: 1.4;
+}
+
+.signature-text p {
+  margin: 2px 0;
+}
+
+.privacy-notice {
+  font-size: 11px;
+  color: #555;
+  margin-top: 8px;
+  border-top: 1px solid #ccc;
+  padding-top: 8px;
+}
