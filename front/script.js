@@ -29,33 +29,11 @@ function loadLojas() {
 }
 
 // Função para gerar a assinatura
-document.getElementById('signature-form').addEventListener('submit', function (event) {
-  event.preventDefault();
-
-  const firstName = document.getElementById('first-name').value.trim();
-  const lastName = document.getElementById('last-name').value.trim();
-  const jobTitle = document.getElementById('job-title').value.trim();
-  const loja = document.getElementById('Loja').value.trim();
-  const email = document.getElementById('email').value.trim();
-
-  // Validação básica
-  if (!firstName || !lastName || !loja || !email) {
-    alert('Por favor, preencha todos os campos obrigatórios.');
-    return;
-  }
-
-  // Atualiza a pré-visualização
-  document.getElementById('preview-name').textContent = `${firstName} ${lastName}`;
-  document.getElementById('preview-job-title').textContent = jobTitle;
-  document.getElementById('preview-loja').textContent = loja;
-  document.getElementById('preview-email').textContent = email;
-});
-
 document.getElementById('generate-signature').addEventListener('click', function () {
   const firstNameInput = document.getElementById('first-name');
   const lastNameInput = document.getElementById('last-name');
   const jobTitle = document.getElementById('job-title').value.trim();
-  const Loja = document.getElementById('Loja').value.trim();
+  const loja = document.getElementById('Loja').value.trim();
   const email = document.getElementById('email').value.trim();
 
   const firstName = firstNameInput.value.trim();
@@ -70,7 +48,7 @@ document.getElementById('generate-signature').addEventListener('click', function
   firstNameInput.setCustomValidity('');
   lastNameInput.setCustomValidity('');
 
-  if (!firstName || !lastName || !jobTitle || !Loja || !email) {
+  if (!firstName || !lastName || !jobTitle || !loja || !email) {
     alert('Por favor, preencha todos os campos obrigatórios.');
     return;
   }
@@ -87,20 +65,25 @@ document.getElementById('generate-signature').addEventListener('click', function
     return;
   }
 
+  // Atualiza a pré-visualização
   const signatureText = document.querySelector('.signature-text');
   signatureText.innerHTML = `
     <p><strong>${firstName} ${lastName}</strong><br>${jobTitle}</p>
-    <p>${Loja}</p>
+    <p>${loja}</p>
     <p>${email}</p>
   `;
 });
 
+// Função para baixar a assinatura como imagem
 document.getElementById('download-signature').addEventListener('click', function () {
-  html2canvas(document.getElementById('signature-download-box')).then(canvas => {
+  const signatureBox = document.getElementById('signature-download-box');
+
+  // Usa html2canvas para capturar o conteúdo como imagem
+  html2canvas(signatureBox).then(canvas => {
     const link = document.createElement('a');
-    link.href = canvas.toDataURL("image/png");
-    link.download = 'assinatura.png';
-    link.click();
+    link.href = canvas.toDataURL("image/png"); // Converte o conteúdo para PNG
+    link.download = 'assinatura.png'; // Nome do arquivo baixado
+    link.click(); // Simula o clique para download
   });
 });
 
