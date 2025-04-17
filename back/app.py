@@ -13,7 +13,7 @@ def home():
 def get_lojas():
     try:
         # Lê o arquivo Excel
-        df = pd.read_excel('lojas.xlsx')
+        df = pd.read_excel('Lojas_planilha.xlsx')
 
         # Verifica se as colunas esperadas existem
         if 'codigo' not in df.columns or 'nome' not in df.columns:
