@@ -44,15 +44,38 @@ button:hover {
   background-color: #1e5f89;
 }
 
+/* Ajusta o contêiner de pré-visualização */
 #signature-download-box {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px; /* Aumenta a largura máxima */
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 20px;
   margin: 20px auto 10px;
   box-sizing: border-box;
   text-align: center;
+  overflow: visible; /* Garante que o conteúdo não seja cortado */
+}
+
+/* Ajusta o texto da assinatura */
+.signature-text {
+  flex: 1;
+  text-align: left;
+  font-size: 16px; /* Aumenta o tamanho da fonte */
+  padding: 0 10px;
+  line-height: 1.8; /* Aumenta o espaçamento entre linhas */
+  white-space: normal; /* Permite que o texto quebre em várias linhas */
+  word-wrap: break-word; /* Quebra palavras longas */
+  overflow: visible; /* Garante que o texto não seja cortado */
+}
+
+/* Ajusta os parágrafos dentro do texto da assinatura */
+.signature-text p {
+  margin: 5px 0;
+  white-space: normal; /* Permite que o texto quebre em várias linhas */
+  word-wrap: break-word; /* Quebra palavras longas */
+  overflow: visible; /* Garante que o texto não seja cortado */
+  text-align: left; /* Alinha o texto à esquerda */
 }
 
 #signature-preview {
@@ -70,18 +93,6 @@ button:hover {
 .certification {
   width: 80px;
   height: auto;
-}
-
-.signature-text {
-  flex: 1;
-  text-align: left;
-  font-size: 14px;
-  padding: 0 10px;
-  line-height: 1.6;
-}
-
-.signature-text p {
-  margin: 5px 0;
 }
 
 .privacy-notice {

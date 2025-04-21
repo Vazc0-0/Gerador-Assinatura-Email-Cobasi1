@@ -34,7 +34,12 @@
     <div id="signature-download-box">
       <div id="signature-preview">
         <img src="./logo.jpg" alt="Logo Cobasi" class="logo">
-        <div class="signature-text"></div>
+        <div class="signature-text">
+          <p id="full-name"></p>
+          <p id="job-title-preview"></p>
+          <p id="store-preview"></p> <!-- Aqui será exibido o código e o nome da loja -->
+          <p id="email-preview"></p>
+        </div>
         <img src="./Selos_Agrupados.png" alt="Selos" class="certification">
       </div>
       <div class="privacy-notice">
@@ -61,8 +66,8 @@
         const lojaSelect = document.getElementById('Loja');
         lojas.forEach(loja => {
           const option = document.createElement('option');
-          option.value = loja.codigo;
-          option.textContent = `${loja.codigo} - ${loja.nome}`;
+          option.value = loja.codigo; // Define o código como valor
+          option.textContent = `${loja.codigo} - ${loja.nome}`; // Exibe código e nome no texto
           lojaSelect.appendChild(option);
         });
       } catch (error) {

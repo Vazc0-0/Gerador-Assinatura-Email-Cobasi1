@@ -22,44 +22,33 @@ async function fetchLojas() {
 
 // Função para gerar a assinatura
 document.getElementById('generate-signature').addEventListener('click', function () {
-  const firstNameInput = document.getElementById('first-name');
-  const lastNameInput = document.getElementById('last-name');
+  const firstName = document.getElementById('first-name').value.trim();
+  const lastName = document.getElementById('last-name').value.trim();
   const jobTitle = document.getElementById('job-title').value.trim();
-  const loja = document.getElementById('Loja').value.trim();
+  const lojaSelect = document.getElementById('Loja');
+  const loja = lojaSelect.options[lojaSelect.selectedIndex].text; // Obtém o texto completo da loja
   const email = document.getElementById('email').value.trim();
 
-  const firstName = firstNameInput.value.trim();
-  const lastName = lastNameInput.value.trim();
-
-  // Resetando mensagens de erro
-  firstNameInput.setCustomValidity('');
-  lastNameInput.setCustomValidity('');
-
-  if (!firstName || !lastName || !jobTitle || !loja || !email) {
-    alert('Por favor, preencha todos os campos obrigatórios.');
-    return;
-  }
-
   // Atualiza a pré-visualização
-  const signatureText = document.querySelector('.signature-text');
-  signatureText.innerHTML = `
-    <p><strong>${firstName} ${lastName}</strong><br>${jobTitle}</p>
-    <p>${loja}</p>
-    <p>${email}</p>
-  `;
+  document.getElementById('full-name').textContent = `${firstName} ${lastName}`;
+  document.getElementById('job-title-preview').textContent = jobTitle;
+  document.getElementById('store-preview').textContent = loja; // Exibe o texto completo da loja
+  document.getElementById('email-preview').textContent = email;
 });
 
 // Função para baixar a assinatura como imagem
 document.getElementById('download-signature').addEventListener('click', function () {
   const signatureBox = document.getElementById('signature-download-box');
 
-  // Usa html2canvas para capturar o conteúdo como imagem
-  html2canvas(signatureBox).then(canvas => {
-    const link = document.createElement('a');
-    link.href = canvas.toDataURL("image/png"); // Converte o conteúdo para PNG
-    link.download = 'assinatura.png'; // Nome do arquivo baixado
-    link.click(); // Simula o clique para download
-  });
+  // Garante que o DOM esteja atualizado antes de capturar
+  setTimeout(() => {
+    html2canvas(signatureBox).then(canvas => {
+      const link = document.createElement('a');
+      link.href = canvas.toDataURL("image/png"); // Converte o conteúdo para PNG
+      link.download = 'assinatura.png'; // Nome do arquivo baixado
+      link.click(); // Simula o clique para download
+    });
+  }, 100); // Pequeno atraso para garantir a renderização
 });
 
 // Chama a função ao carregar a página
