@@ -13,14 +13,21 @@ def home():
 def get_lojas():
     try:
         # Lê o arquivo Excel
-        df = pd.read_excel('Lojas_planilha.xlsx')
+        df = pd.read_excel(r'c:\Users\Gabriel Franco\Documents\GitHub\Gerador-Assinatura-Email-Cobasi1\back\Lojas_planilha.xlsx')
 
-        # Verifica se as colunas esperadas existem
-        if 'codigo' not in df.columns or 'nome' not in df.columns:
-            return jsonify({"error": "O arquivo Excel deve conter as colunas 'codigo' e 'nome'."}), 400
+        # Remove espaços extras dos nomes das colunas
+        df.columns = df.columns.str.strip()
 
-        # Filtra apenas as colunas relevantes e converte para lista de dicionários
-        lojas = df[['codigo', 'nome']].dropna().to_dict(orient='records')
+        # Verifica se há pelo menos duas colunas no arquivo
+        if len(df.columns) < 2:
+            return jsonify({"error": "O arquivo Excel deve conter pelo menos duas colunas."}), 400
+
+        # Seleciona as duas primeiras colunas, independentemente dos nomes
+        df = df.iloc[:, :2]  # Seleciona apenas as duas primeiras colunas
+        df.columns = ['codigo', 'nome']  # Renomeia as colunas para 'codigo' e 'nome'
+
+        # Remove linhas com valores nulos e converte para lista de dicionários
+        lojas = df.dropna().to_dict(orient='records')
 
         return jsonify(lojas)  # Retorna os dados como JSON
     except FileNotFoundError:

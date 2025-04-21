@@ -22,10 +22,6 @@
       <label for="Loja">Loja*</label>
       <select id="Loja" required>
         <option value="">Selecione a loja</option>
-        <option>001-9 Villa Lobos - SP</option>
-        <option>002-7 Osasco - SP</option>
-        <option>003-5 Giovanni / Morumbi - SP</option>
-        <!-- Adicione mais opções conforme necessário -->
       </select>
 
       <label for="email">E-mail*</label>
@@ -51,5 +47,31 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="script.js"></script>
+  <script>
+    // Função para buscar lojas do backend e preencher o select
+    async function fetchLojas() {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/lojas'); // Endpoint do backend
+        if (!response.ok) {
+          throw new Error('Erro ao buscar lojas');
+        }
+        const lojas = await response.json();
+  
+        // Preenche o select com as opções de lojas
+        const lojaSelect = document.getElementById('Loja');
+        lojas.forEach(loja => {
+          const option = document.createElement('option');
+          option.value = loja.codigo;
+          option.textContent = `${loja.codigo} - ${loja.nome}`;
+          lojaSelect.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Erro ao carregar lojas:', error);
+      }
+    }
+  
+    // Chama a função ao carregar a página
+    document.addEventListener('DOMContentLoaded', fetchLojas);
+  </script>
 </body>
 </html>

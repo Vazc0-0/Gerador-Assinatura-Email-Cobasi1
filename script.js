@@ -1,31 +1,23 @@
 // Função para buscar as lojas do back-end e preencher o select
-function loadLojas() {
-  const selectLoja = document.getElementById('Loja');
+async function fetchLojas() {
+  try {
+    const response = await fetch('http://127.0.0.1:5000/lojas'); // Endpoint do backend
+    if (!response.ok) {
+      throw new Error('Erro ao buscar lojas');
+    }
+    const lojas = await response.json();
 
-  // Faz a requisição para a API
-  fetch('http://127.0.0.1:5000/lojas') // URL do Flask
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`Erro ao carregar as lojas: ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      // Limpa o select antes de adicionar os novos dados
-      selectLoja.innerHTML = '<option value="">Selecione a loja</option>';
-
-      // Adiciona as opções ao select
-      data.forEach(loja => {
-        const option = document.createElement('option');
-        option.value = loja.codigo; // Código da loja
-        option.textContent = `${loja.codigo} - ${loja.nome}`; // Código e nome da loja
-        selectLoja.appendChild(option);
-      });
-    })
-    .catch(error => {
-      console.error('Erro ao carregar as lojas:', error);
-      alert('Erro ao carregar as lojas. Verifique o console para mais detalhes.');
+    // Preenche o select com as opções de lojas
+    const lojaSelect = document.getElementById('Loja');
+    lojas.forEach(loja => {
+      const option = document.createElement('option');
+      option.value = loja.codigo;
+      option.textContent = `${loja.codigo} - ${loja.nome}`;
+      lojaSelect.appendChild(option);
     });
+  } catch (error) {
+    console.error('Erro ao carregar lojas:', error);
+  }
 }
 
 // Função para gerar a assinatura
@@ -71,4 +63,4 @@ document.getElementById('download-signature').addEventListener('click', function
 });
 
 // Chama a função ao carregar a página
-document.addEventListener('DOMContentLoaded', loadLojas);
+document.addEventListener('DOMContentLoaded', fetchLojas);
