@@ -26,19 +26,45 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchLojas();
 
   // Função para gerar a assinatura
-  document.getElementById('generate-signature').addEventListener('click', () => {
-    const firstName = document.getElementById('first-name').value.trim();
-    const lastName  = document.getElementById('last-name').value.trim();
-    const jobTitle  = document.getElementById('job-title').value.trim();
-    const lojaSelect= document.getElementById('Loja');
-    const loja      = lojaSelect.options[lojaSelect.selectedIndex].text;
-    const email     = document.getElementById('email').value.trim();
+  document.getElementById('generate-signature').addEventListener('click', function () {
+    const firstNameInput = document.getElementById('first-name');
+    const lastNameInput = document.getElementById('last-name');
+    const jobTitle = document.getElementById('job-title').value.trim();
+    const lojaSelect = document.getElementById('Loja');
+    const loja = lojaSelect.options[lojaSelect.selectedIndex].text; // Obtém o texto completo da loja
+    const email = document.getElementById('email').value.trim();
+
+    const firstName = firstNameInput.value.trim();
+    const lastName = lastNameInput.value.trim();
+
+    // Função para verificar se todas as palavras começam com letra maiúscula
+    function isCapitalized(name) {
+      return name.split(' ').every(word => word[0] === word[0].toUpperCase());
+    }
+
+    // Validação de nome e sobrenome
+    if (!isCapitalized(firstName)) {
+      alert('Por favor, insira o primeiro nome com a primeira letra de cada palavra em maiúsculo.');
+      firstNameInput.focus();
+      return;
+    }
+
+    if (!isCapitalized(lastName)) {
+      alert('Por favor, insira o sobrenome com a primeira letra de cada palavra em maiúsculo.');
+      lastNameInput.focus();
+      return;
+    }
+
+    if (!firstName || !lastName || !jobTitle || !loja || !email) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
 
     // Atualiza a pré-visualização
-    document.getElementById('full-name').textContent      = `${firstName} ${lastName}`;
+    document.getElementById('full-name').textContent = `${firstName} ${lastName}`;
     document.getElementById('job-title-preview').textContent = jobTitle;
-    document.getElementById('store-preview').textContent     = loja;
-    document.getElementById('email-preview').textContent     = email;
+    document.getElementById('store-preview').textContent = loja; // Exibe o texto completo da loja
+    document.getElementById('email-preview').textContent = email;
   });
 
   // Função para baixar a assinatura como imagem
