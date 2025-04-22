@@ -17,8 +17,8 @@ def get_lojas():
         # Caminho relativo para o arquivo Excel
         excel_path = os.path.join(os.path.dirname(__file__), 'Lojas_Planilha.xlsx')
 
-        # Lê o arquivo Excel
-        df = pd.read_excel(excel_path)
+        # Lê o arquivo Excel e limita a 409 linhas
+        df = pd.read_excel(excel_path).head(409)
 
         # Remove espaços extras dos nomes das colunas
         df.columns = df.columns.str.strip()
