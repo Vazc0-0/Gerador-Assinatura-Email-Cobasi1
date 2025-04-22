@@ -34,14 +34,25 @@ input, select, button {
 }
 
 button {
-  background-color: #2878a7;
-  color: white;
-  border: none;
-  cursor: pointer;
+  background-color: #2878a7; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Remove a borda */
+  border-radius: 5px; /* Bordas arredondadas */
+  padding: 10px 20px; /* Espaçamento interno */
+  font-size: 16px; /* Tamanho da fonte */
+  font-weight: bold; /* Texto em negrito */
+  cursor: pointer; /* Mostra o cursor de clique */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Animação */
 }
 
 button:hover {
-  background-color: #1e5f89;
+  background-color: #1e5f89; /* Cor ao passar o mouse */
+  transform: scale(1.05); /* Aumenta ligeiramente o botão */
+}
+
+button:active {
+  background-color: #164d63; /* Cor ao clicar */
+  transform: scale(0.95); /* Reduz ligeiramente o botão */
 }
 
 /* Ajusta o contêiner de pré-visualização */

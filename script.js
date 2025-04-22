@@ -1,4 +1,4 @@
-// Função para buscar as lojas do back-end e preencher o select
+// Função para buscar lojas do backend e preencher o select
 async function fetchLojas() {
   try {
     const response = await fetch('http://127.0.0.1:5000/lojas'); // Endpoint do backend
@@ -11,8 +11,8 @@ async function fetchLojas() {
     const lojaSelect = document.getElementById('Loja');
     lojas.forEach(loja => {
       const option = document.createElement('option');
-      option.value = loja.codigo;
-      option.textContent = `${loja.codigo} - ${loja.nome}`;
+      option.value = loja.codigo; // Define o código como valor
+      option.textContent = `${loja.codigo} - ${loja.nome}`; // Exibe código e nome no texto
       lojaSelect.appendChild(option);
     });
   } catch (error) {

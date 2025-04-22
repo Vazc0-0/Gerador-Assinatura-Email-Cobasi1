@@ -33,7 +33,7 @@ def get_lojas():
     except FileNotFoundError:
         return jsonify({"error": "Arquivo Excel não encontrado."}), 404
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 500 
 
 if __name__ == '__main__':
     app.run(debug=True)
