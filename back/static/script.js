@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('generate-signature').addEventListener('click', function () {
     const firstNameInput = document.getElementById('first-name');
     const lastNameInput = document.getElementById('last-name');
+    const firstNameError = document.getElementById('first-name-error');
+    const lastNameError = document.getElementById('last-name-error');
     const jobTitle = document.getElementById('job-title').value.trim();
     const lojaSelect = document.getElementById('Loja');
     const loja = lojaSelect.options[lojaSelect.selectedIndex].text; // Obtém o texto completo da loja
@@ -42,16 +44,32 @@ document.addEventListener('DOMContentLoaded', () => {
       return name.split(' ').every(word => word[0] === word[0].toUpperCase());
     }
 
-    // Validação de nome e sobrenome
+    let hasError = false;
+
+    // Validação do primeiro nome
     if (!isCapitalized(firstName)) {
-      alert('Por favor, insira o primeiro nome com a primeira letra de cada palavra em maiúsculo.');
-      firstNameInput.focus();
-      return;
+      firstNameError.textContent = 'Cada palavra deve começar com letra maiúscula.';
+      firstNameError.style.display = 'inline';
+      firstNameInput.classList.add('input-error'); // Adiciona uma classe para destacar o campo
+      hasError = true;
+    } else {
+      firstNameError.style.display = 'none';
+      firstNameInput.classList.remove('input-error');
     }
 
+    // Validação do sobrenome
     if (!isCapitalized(lastName)) {
-      alert('Por favor, insira o sobrenome com a primeira letra de cada palavra em maiúsculo.');
-      lastNameInput.focus();
+      lastNameError.textContent = 'Cada palavra deve começar com letra maiúscula.';
+      lastNameError.style.display = 'inline';
+      lastNameInput.classList.add('input-error');
+      hasError = true;
+    } else {
+      lastNameError.style.display = 'none';
+      lastNameInput.classList.remove('input-error');
+    }
+
+    // Impede o envio do formulário se houver erros
+    if (hasError) {
       return;
     }
 

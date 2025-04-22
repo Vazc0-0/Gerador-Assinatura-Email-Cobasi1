@@ -114,3 +114,10 @@ button:active {
   padding-top: 10px;
   text-align: justify;
 }
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-left: 10px;
+  display: none; /* Esconde a mensagem por padrão */
+}

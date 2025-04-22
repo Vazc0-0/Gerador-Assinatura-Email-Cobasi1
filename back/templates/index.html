@@ -10,11 +10,17 @@
   <div class="container">
     <h1>Gerador de Assinatura</h1>
     <form id="signature-form">
-      <label for="first-name">Primeiro Nome*</label>
-      <input type="text" id="first-name" placeholder="Seu primeiro nome" required>
+      <div>
+        <label for="first-name">Nome*</label>
+        <input type="text" id="first-name" required>
+        <span id="first-name-error" class="error-message"></span> <!-- Mensagem de erro -->
+      </div>
 
-      <label for="last-name">Sobrenome*</label>
-      <input type="text" id="last-name" placeholder="Seu sobrenome" required>
+      <div>
+        <label for="last-name">Sobrenome*</label>
+        <input type="text" id="last-name" required>
+        <span id="last-name-error" class="error-message"></span> <!-- Mensagem de erro -->
+      </div>
 
       <label for="job-title">Cargo*</label>
       <input type="text" id="job-title" value="Gerente de Loja" readonly>
