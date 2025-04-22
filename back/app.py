@@ -1,39 +1,44 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import pandas as pd
 from flask_cors import CORS
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)  # Permite requisições do frontend
 
 @app.route('/')
-def home():
-    return "Servidor Flask está rodando! Acesse /lojas para ver os dados."
+def index():
+    # Renderiza o HTML principal
+    return render_template('index.html')
 
 @app.route('/lojas', methods=['GET'])
 def get_lojas():
     try:
+        # Caminho relativo para o arquivo Excel
+        excel_path = os.path.join(os.path.dirname(__file__), 'Lojas_Planilha.xlsx')
+        
         # Lê o arquivo Excel
-        df = pd.read_excel(r'c:\Users\Gabriel Franco\Documents\GitHub\Gerador-Assinatura-Email-Cobasi1\back\Lojas_planilha.xlsx')
+        df = pd.read_excel(excel_path)
 
         # Remove espaços extras dos nomes das colunas
         df.columns = df.columns.str.strip()
 
-        # Verifica se há pelo menos duas colunas no arquivo
+        # Verifica se há pelo menos duas colunas
         if len(df.columns) < 2:
             return jsonify({"error": "O arquivo Excel deve conter pelo menos duas colunas."}), 400
 
-        # Seleciona as duas primeiras colunas, independentemente dos nomes
-        df = df.iloc[:, :2]  # Seleciona apenas as duas primeiras colunas
-        df.columns = ['codigo', 'nome']  # Renomeia as colunas para 'codigo' e 'nome'
+        # Seleciona as duas primeiras colunas
+        df = df.iloc[:, :2]
+        df.columns = ['codigo', 'nome']
 
-        # Remove linhas com valores nulos e converte para lista de dicionários
+        # Remove linhas com valores nulos
         lojas = df.dropna().to_dict(orient='records')
 
-        return jsonify(lojas)  # Retorna os dados como JSON
+        return jsonify(lojas)
     except FileNotFoundError:
         return jsonify({"error": "Arquivo Excel não encontrado."}), 404
     except Exception as e:
-        return jsonify({"error": str(e)}), 500 
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
