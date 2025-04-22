@@ -3,3 +3,4 @@ gunicorn
 pandas
 flask_cors
 jsonify
+openpyxl
