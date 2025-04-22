@@ -16,7 +16,7 @@ def get_lojas():
     try:
         # Caminho relativo para o arquivo Excel
         excel_path = os.path.join(os.path.dirname(__file__), 'Lojas_Planilha.xlsx')
-        
+
         # Lê o arquivo Excel
         df = pd.read_excel(excel_path)
 
@@ -31,8 +31,13 @@ def get_lojas():
         df = df.iloc[:, :2]
         df.columns = ['codigo', 'nome']
 
-        # Remove linhas com valores nulos
-        lojas = df.dropna().to_dict(orient='records')
+        # Remove linhas com valores nulos ou vazios
+        df = df.dropna(how='any')  # Remove linhas com valores nulos
+        df = df[df['codigo'].str.strip() != '']  # Remove linhas com 'codigo' vazio
+        df = df[df['nome'].str.strip() != '']  # Remove linhas com 'nome' vazio
+
+        # Converte para lista de dicionários
+        lojas = df.to_dict(orient='records')
 
         return jsonify(lojas)
     except FileNotFoundError:
