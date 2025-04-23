@@ -68,8 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
       lastNameInput.classList.remove('input-error');
     }
 
-    // Impede o envio do formulário se houver erros
+    // Impede a geração da imagem se houver erros
     if (hasError) {
+      alert('Corrija os erros antes de gerar a assinatura.');
       return;
     }
 
@@ -83,6 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('job-title-preview').textContent = jobTitle;
     document.getElementById('store-preview').textContent = loja; // Exibe o texto completo da loja
     document.getElementById('email-preview').textContent = email;
+
+    // Aqui você pode adicionar o código para gerar a imagem
+    alert('Assinatura gerada com sucesso!');
   });
 
   // Função para baixar a assinatura como imagem

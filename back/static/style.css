@@ -121,3 +121,7 @@ button:active {
   margin-left: 10px;
   display: none; /* Esconde a mensagem por padrão */
 }
+
+.input-error {
+  border: 2px solid red; /* Destaca o campo com erro */
+}
